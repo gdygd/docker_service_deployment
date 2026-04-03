@@ -31,7 +31,7 @@ services:
       # 데이터 영속화
       - mariadb_data:/var/lib/mysql
       # 로그 디렉토리
-      - ./db/logs:/var/log/mysql
+      - ./db/logs:/var/log/mysql      
     command:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
@@ -53,7 +53,9 @@ services:
     ports:
       - "9081:9081"
     volumes:
-      - ./services/api-gateway/bin/app.env:/app/app.env:ro
+      - ./services/api-gateway/app.env:/app/app.env:ro
+      # build fild
+      - ./wwwroot:/app/wwwroot
     command: ["-MODE=1"]  # 운영 모드
     depends_on:
       - auth-service
@@ -70,7 +72,7 @@ services:
     ports:
       - "9081:9081"
     volumes:
-      - ./services/api-gateway/bin/app.env:/app/app.env:ro
+      - ./services/api-gateway/app.env:/app/app.env:ro
     command: ["-MODE=0"]  # 개발 모드
     networks:
       - docker-mng
@@ -94,7 +96,7 @@ services:
       - DB_PASSWD=dev
       - DB_NAME=docker
     volumes:
-      - ./services/auth_service/bin/app.env:/app/app.env:ro
+      - ./services/auth_service/app.env:/app/app.env:ro
     depends_on:
       - mariadb
     networks:
@@ -112,8 +114,8 @@ services:
     environment:
       - CERT_PATH=/certs
     volumes:
-      - ./services/docker_service/bin/app.env:/app/app.env:ro
-      - /home/gildong/work/go/src/docker_mng/docker_service/services/docker_service/certs:/certs:ro
+      - ./services/docker_service/app.env:/app/app.env:ro
+      #- /home/gildong/work/go/src/docker_mng/docker_service/services/docker_service/certs:/certs:ro
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - docker-mng
