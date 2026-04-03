@@ -64,22 +64,6 @@ services:
       - docker-mng
     restart: unless-stopped
 
-  # API Gateway (개발 모드) - profile로 선택
-  api-gateway-dev:
-    image: ${REGISTRY_URL}/api-gateway:latest
-    container_name: api-gateway-dev
-    profiles: ["dev"]
-    ports:
-      - "9081:9081"
-    env_file:
-      - ./services/api-gateway/app.env
-    #volumes:
-      #- ./services/api-gateway/app.env:/app/app.env:ro
-    command: ["-MODE=0"]  # 개발 모드
-    networks:
-      - docker-mng
-    restart: unless-stopped
-
   # -----------------------------------------
   # Auth Service
   # -----------------------------------------
@@ -98,7 +82,7 @@ services:
       - DB_PASSWD=dev
       - DB_NAME=docker
     env_file:
-      - ./services/auth_service/app.env
+      - ./services/auth-service/app.env
     #volumes:
       #- ./services/auth_service/app.env:/app/app.env:ro
     depends_on:
