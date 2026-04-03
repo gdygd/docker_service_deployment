@@ -48,7 +48,7 @@ services:
   # API Gateway
   # -----------------------------------------
   api-gateway:
-    image: ${REGISTRY_URL:-theroad-ygd.com:5000}/api-gateway:latest
+    image: ${REGISTRY_URL}/api-gateway:latest
     container_name: api-gateway
     ports:
       - "9081:9081"
@@ -66,7 +66,7 @@ services:
 
   # API Gateway (개발 모드) - profile로 선택
   api-gateway-dev:
-    image: ${REGISTRY_URL:-theroad-ygd.com:5000}/api-gateway:latest
+    image: ${REGISTRY_URL}/api-gateway:latest
     container_name: api-gateway-dev
     profiles: ["dev"]
     ports:
@@ -82,7 +82,7 @@ services:
   # Auth Service
   # -----------------------------------------
   auth-service:
-    image: ${REGISTRY_URL:-theroad-ygd.com:5000}/auth-service:latest
+    image: ${REGISTRY_URL}/auth-service:latest
     container_name: auth-service
     ports:
       - "9090:9090"      # REST API
@@ -107,7 +107,7 @@ services:
   # Docker Service
   # -----------------------------------------
   docker-service:
-    image: ${REGISTRY_URL:-theroad-ygd.com:5000}/docker-service:latest
+    image: ${REGISTRY_URL}/docker-service:latest
     container_name: docker-service
     ports:
       - "9083:9083"
